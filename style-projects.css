@@ -1,22 +1,33 @@
+/* ============================================================
+   MOBILE-FIRST BASE STYLES
+   Applies to all screen sizes unless overridden below
+   ============================================================ */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
 /* Global */
 body {
   margin: 0;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  min-height: 100vh;
   background-color: #04001e;
   color: white;
-  overflow: hidden;
+  overflow-x: hidden;
 }
 
 /* Header */
 .header {
   background-color: #04001e;
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
-  padding: 12px 40px;
+  gap: 12px;
+  padding: 12px 20px;
   position: sticky;
   top: 0;
   z-index: 1000;
@@ -24,7 +35,7 @@ body {
 
 /* Logo */
 .header-left .logo img {
-  height: 40px;
+  height: 36px;
   cursor: pointer;
   transition: transform 0.3s ease, filter 0.3s ease;
 }
@@ -40,13 +51,14 @@ body {
   margin: 0;
   padding: 0;
   display: flex;
-  gap: 24px;
+  flex-wrap: wrap;
+  gap: 16px;
 }
 
 .header-nav ul li a {
   color: white;
   text-decoration: none;
-  font-size: 1rem;
+  font-size: 0.95rem;
   font-weight: 500;
   transition: all 0.3s ease;
 }
@@ -65,28 +77,37 @@ body {
   opacity: 0;
 }
 
-/* Content wrapper */
+/* Content wrapper (mobile/tablet)
+   No forced height/hidden overflow here, since the project grid
+   is taller than one screen on narrow viewports and needs to
+   scroll instead of being clipped. */
 .content {
   flex: 1;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
+  justify-content: flex-start;
   position: relative;
-  overflow: hidden;
+  padding: 24px 16px 8px;
+  overflow: visible;
 }
 
+/* Project grid (mobile/tablet)
+   Fluid column count instead of a fixed 5, so cards wrap onto
+   as many columns as actually fit. */
 .projects {
   display: grid;
-  grid-template-columns: repeat(5, 2fr);
-  gap: 50px;
-  flex-wrap: wrap;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 24px;
   justify-items: center;
+  width: 100%;
   margin: 20px 0;
 }
 
 .project-card {
   background-color: #e6f0fa; /* light blue */
-  width: 300px;
+  width: 100%;
+  max-width: 300px;
   border-radius: 10px;
   overflow: hidden;
   box-shadow: 0 4px 6px rgba(0,0,0,0.1);
@@ -163,15 +184,17 @@ body {
   font-weight: bold;
 }
 
-/* Footer Layout */
+/* Footer Layout (mobile/tablet) */
 .footer {
   background-color: #04001e;
   color: white;
   display: flex;
-  justify-content: space-between;
+  flex-wrap: wrap;
+  justify-content: center;
   align-items: center;
-  padding: 12px 40px;
-  font-size: 14px;
+  gap: 8px;
+  padding: 12px 20px;
+  font-size: 13px;
   position: relative;
 }
 
@@ -188,9 +211,8 @@ body {
 }
 
 .footer-center {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
+  position: static;
+  transform: none;
   display: flex;               /* align text + logo inline */
   align-items: center;         /* vertical alignment */
   gap: 6px;                    /* spacing between text and logo */
@@ -227,4 +249,66 @@ body {
 .linkedin-inline:hover img {
   transform: scale(1.2);
   filter: drop-shadow(0 0 6px #7ed957);
+}
+
+/* ============================================================
+   DESKTOP (>= 900px): original design, unchanged
+   Same breakpoint used on style-index.css for consistency
+   across the site.
+   ============================================================ */
+@media (min-width: 900px) {
+
+  body {
+    height: 100vh;
+    overflow: hidden;
+  }
+
+  .header {
+    flex-wrap: nowrap;
+    padding: 12px 40px;
+  }
+
+  .header-left .logo img {
+    height: 40px;
+  }
+
+  .header-nav ul {
+    flex-wrap: nowrap;
+    gap: 24px;
+  }
+
+  .header-nav ul li a {
+    font-size: 1rem;
+  }
+
+  .content {
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    overflow: hidden;
+  }
+
+  .projects {
+    grid-template-columns: repeat(5, 2fr);
+    gap: 50px;
+  }
+
+  .project-card {
+    width: 300px;
+    max-width: none;
+  }
+
+  .footer {
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    padding: 12px 40px;
+    font-size: 14px;
+  }
+
+  .footer-center {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+  }
 }
