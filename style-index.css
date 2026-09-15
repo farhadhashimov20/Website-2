@@ -1,0 +1,444 @@
+/* ============================================================
+   MOBILE-FIRST BASE STYLES
+   Applies to all screen sizes unless overridden below
+   ============================================================ */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+/* Global */
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #04001e;
+  color: white;
+  overflow-x: hidden;
+}
+
+/* Header */
+.header {
+  background-color: #04001e;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 20px;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+/* Logo */
+.header-left .logo img {
+  height: 36px;
+  cursor: pointer;
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.header-left .logo img:hover {
+  transform: scale(1.1);
+  filter: drop-shadow(0 0 6px #7ed957);
+}
+
+/* Navigation */
+.header-nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.header-nav ul li a {
+  color: white;
+  text-decoration: none;
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.header-nav ul li a:hover {
+  color: #7ed957;
+  text-shadow: 0 0 6px rgba(255,255,255,0.7);
+}
+
+/* Content wrapper
+   Mobile/tablet: simple centered stack. Circles become soft,
+   size-capped background blobs behind the text instead of
+   fixed-pixel shapes placed with desktop-only percentages. */
+.content {
+  flex: 1;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 56px 20px;
+  gap: 18px;
+  overflow: hidden;
+}
+
+/* Circles (mobile/tablet) */
+.circleS {
+  position: absolute;
+  top: 50%;
+  left: 42%;
+  transform: translate(-50%, -50%);
+  width: 55vw;
+  height: 55vw;
+  max-width: 220px;
+  max-height: 220px;
+  opacity: 0;
+  mix-blend-mode: lighten;
+  animation: fadeInCircle 2.5s ease forwards;
+}
+
+.circleB {
+  position: absolute;
+  top: 45%;
+  left: 58%;
+  transform: translate(-50%, -50%);
+  width: 65vw;
+  height: 65vw;
+  max-width: 260px;
+  max-height: 260px;
+  opacity: 0;
+  mix-blend-mode: lighten;
+  animation: fadeInCircle 2.5s ease forwards;
+  animation-delay: 0.2s;
+}
+
+@keyframes fadeInCircle {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Center vertical line with dots
+   Hidden on mobile/tablet — it's a desktop-only flourish that
+   doesn't translate cleanly to a stacked layout. Restored at
+   the desktop breakpoint below. */
+.center-line {
+  display: none;
+}
+
+.center-line .line {
+  width: 1px;
+  height: 240px;
+  background: white;
+}
+
+.center-line .dot {
+  width: 3px;
+  height: 3px;
+  background: white;
+  border-radius: 50%;
+  margin: 8px 0;
+}
+
+@keyframes fadeInLine {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Text block (mobile/tablet) */
+.intro-text {
+  position: relative;
+  z-index: 3;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 0 12px;
+  max-width: 100%;
+}
+
+/* Prevent selection and copy for intro-text elements */
+.intro-text h1,
+.intro-text h2,
+.intro-text p ,
+.circleS ,
+.circleB ,
+.footer {
+  -webkit-user-select: none; /* Safari */
+  -moz-user-select: none;    /* Firefox */
+  -ms-user-select: none;     /* IE10+/Edge */
+  user-select: none;         /* Standard */
+  pointer-events: none;      /* Prevent mouse-based copy */
+}
+
+.intro-text h1 {
+  position: static;
+  font-size: clamp(1.9rem, 8vw, 2.6rem);
+  font-weight: 350;
+  margin: 0;
+  opacity: 0;
+  animation: fadeInUpMobile 1.8s ease forwards;
+  animation-delay: 0.6s;
+}
+
+.intro-text h2 {
+  position: static;
+  font-size: clamp(1.15rem, 5vw, 1.5rem);
+  font-weight: 200;
+  margin: 0;
+  opacity: 0;
+  animation: fadeInUpMobile 1.8s ease forwards;
+  animation-delay: 0.9s;
+}
+
+.intro-text p {
+  position: static;
+  font-size: clamp(0.9rem, 4vw, 1.05rem);
+  line-height: 1.4;
+  margin: 0;
+  opacity: 0;
+  animation: fadeInUpMobile 1.8s ease forwards;
+  animation-delay: 1.2s;
+}
+
+@keyframes fadeInUpMobile {
+  from { transform: translateY(24px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+/* Kept for the desktop breakpoint below (original animations) */
+@keyframes moveRightToCenter {
+  0% { transform: translateX(150px); opacity: 0; }
+  100% { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes moveLeftToCenter {
+  0% { transform: translateX(-150px); opacity: 0; }
+  100% { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes slideInRight {
+  0% { transform: translateX(200px); opacity: 0; }
+  100% { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes slideInLeft {
+  0% { transform: translateX(-200px); opacity: 0; }
+  100% { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes fadeInUp {
+  0% { transform: translateY(50px); opacity: 0; }
+  100% { transform: translateY(-10px); opacity: 1; }
+}
+
+/* Footer Layout (mobile/tablet) */
+.footer {
+  background-color: #04001e;
+  color: white;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 20px;
+  font-size: 13px;
+  position: relative;
+}
+
+.footer a {
+  color: inherit;
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.footer a:hover {
+  color: #7ed957;
+  text-shadow: 0 0 6px rgba(255,255,255,0.7);
+}
+
+.footer-center {
+  position: static;
+  transform: none;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.footer-top {
+  background-color: #04001e;
+  padding: 6px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.footer-top img {
+  height: 20px;
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.footer-top img:hover {
+  transform: scale(1.2);
+  filter: drop-shadow(0 0 6px #7ed957);
+}
+
+.footer-center small {
+  margin: 0;
+}
+
+.linkedin-inline img {
+  height: 18px;
+  display: inline-block;
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.linkedin-inline:hover img {
+  transform: scale(1.2);
+  filter: drop-shadow(0 0 6px #7ed957);
+}
+
+/* ============================================================
+   DESKTOP (>= 900px): original design, unchanged
+   Everything below restores the exact positions, sizes and
+   animations from the original file for wide viewports.
+   Change the 900px number here if you want the cutover to
+   happen at a different width.
+   ============================================================ */
+@media (min-width: 900px) {
+
+  body {
+    height: 100vh;
+    overflow: hidden;
+  }
+
+  .header {
+    flex-wrap: nowrap;
+    padding: 12px 40px;
+  }
+
+  .header-left .logo img {
+    height: 40px;
+  }
+
+  .header-nav ul {
+    flex-wrap: nowrap;
+    gap: 24px;
+  }
+
+  .header-nav ul li a {
+    font-size: 1rem;
+  }
+
+  .content {
+    flex-direction: row;
+    text-align: left;
+    padding: 0;
+    gap: 0;
+  }
+
+  /* Circles */
+  .circleS {
+    width: 330px;
+    height: 330px;
+    max-width: none;
+    max-height: none;
+    top: 42%;       /* lower */
+    left: 38%;      /* left */
+    transform: none;
+    animation: moveLeftToCenter 2.5s ease forwards;
+  }
+
+  .circleB {
+    width: 380px;
+    height: 380px;
+    max-width: none;
+    max-height: none;
+    top: 22%;       /* higher */
+    left: 44.5%;    /* right */
+    transform: none;
+    animation: moveRightToCenter 2.5s ease forwards;
+    animation-delay: 0s;
+  }
+
+  /* Center vertical line with dots */
+  .center-line {
+    display: flex;
+    position: absolute;
+    left: 50%;
+    top: 35%;
+    transform: translateX(-50%);
+    flex-direction: column;
+    align-items: center;
+    z-index: 2;
+    opacity: 0;
+    animation: fadeInLine 2s ease forwards;
+    animation-delay: 1.2s;
+  }
+
+  /* Text block */
+  .intro-text {
+    display: block;
+    padding: 0;
+    gap: 0;
+    max-width: none;
+  }
+
+  /* Name (big, right circle) */
+  .intro-text h1 {
+    position: relative;
+    top: -80%;
+    left: 80%;
+    font-size: 3.5rem;
+    font-weight: 350;
+    margin: 0;
+    opacity: 0;
+    animation: slideInRight 2s ease forwards;
+    animation-delay: 1.5s;
+  }
+
+  /* Subtitle (medium, left circle) */
+  .intro-text h2 {
+    position: relative;
+    top: 52%;
+    right: 80%;
+    font-size: 2.0rem;
+    font-weight: 200;
+    margin: 0;
+    opacity: 0;
+    animation: slideInLeft 2s ease forwards;
+    animation-delay: 1.8s;
+    text-align: right;
+  }
+
+  /* Skills (small, under divider) */
+  .intro-text p {
+    position: relative;
+    top: 20%;
+    left: 65%;
+    font-size: 1.1rem;
+    line-height: 1.4;
+    margin: 0;
+    opacity: 0;
+    animation: fadeInUp 2s ease forwards;
+    animation-delay: 2.1s;
+  }
+
+  /* Footer Layout */
+  .footer {
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    padding: 12px 40px;
+    font-size: 14px;
+  }
+
+  .footer-center {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}
